@@ -33,3 +33,31 @@ jobs:
         run: |
           echo "npm run test"
           pnpm test -- --coverage
+  style:
+    name: Style
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: |
+          echo "npm ci"
+          pnpm install --frozen-lockfile
+
+      - name: Style
+        run: |
+          echo "npm run format:check"
+          pnpm format:check
