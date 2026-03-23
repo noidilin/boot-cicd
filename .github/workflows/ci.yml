@@ -60,5 +60,6 @@ jobs:
       - name: Style
         run: |
           echo "npm run format:check"
+          echo "npm run lint"
           pnpm format:check
           pnpm lint
