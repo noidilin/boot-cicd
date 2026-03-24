@@ -1,11 +1,12 @@
 FROM --platform=linux/amd64 node:22-slim
 
 WORKDIR /usr/src/app
+RUN corepack enable
 
-ADD . .
+COPY package.json pnpm-lock.yaml tsconfig.json ./
+RUN pnpm install --frozen-lockfile
 
-RUN npm ci
-
-RUN npm run build
+COPY src ./src
+RUN pnpm build
 
 CMD ["node", "dist/main.js"]
